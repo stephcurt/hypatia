@@ -19,19 +19,19 @@ export const Sign = {
  * @param value
  * @returns {number}
  */
-const precise = (value) => parseFloat(value.toFixed(Config.SIGDIG));
+const precise = value => parseFloat(value.toFixed(Config.DIGITS));
 /**
  * Move decimal point past significant digit point to perform floating point corrected arithmetic operation.
  * @param value
  * @returns {number}
  */
-const bigify = (value) => precise(value) * Math.pow(10, Config.SIGDIG);
+const bigify = value => precise(value) * Math.pow(10, Config.DIGITS);
 /**
  * Move decimal point back to original position after floating point corrected arithmetic operation.
  * @param value
  * @returns {number}
  */
-const smallify = (value) => precise(value / Math.pow(10, Config.SIGDIG));
+const smallify = value => precise(value / Math.pow(10, Config.DIGITS));
 
 /**
 a * Maintain precision while performing addition operation, correcting for floating point arithmetic errors.
@@ -78,37 +78,37 @@ export const pow = (...values) => values.reverse().reduce((acc, cur, i) => preci
  * @param {number} value
  * @returns {number}
  */
-export const acos = (value) => precise(Math.acos(precise(value)));
+export const acos = value => precise(Math.acos(precise(value)));
 /**
  * Maintain precision while performing cosine operation.
  * @param {number} value
  * @returns {number}
  */
-export const cos = (value) => precise(Math.cos(precise(value)));
+export const cos = value => precise(Math.cos(precise(value)));
 /**
  * Maintain precision while performing arc sine operation.
  * @param {number} value
  * @returns {number}
  */
-export const asin = (value) => precise(Math.asin(precise(value)));
+export const asin = value => precise(Math.asin(precise(value)));
 /**
  * Maintain precision while performing sine operation.
  * @param {number} value
  * @returns {number}
  */
-export const sin = (value) => precise(Math.sin(precise(value)));
+export const sin = value => precise(Math.sin(precise(value)));
 /**
  * Maintain precision while performing tangent operation.
  * @param {number} value
  * @returns {number}
  */
-export const tan = (value) => precise(Math.tan(precise(value)));
+export const tan = value => precise(Math.tan(precise(value)));
 /**
  * Maintain precision while performing arc tangent (inverse tangent) operation.
  * @param {number} value
  * @returns {number}
  */
-export const atan = (value) => precise(Math.atan(precise(value)));
+export const atan = value => precise(Math.atan(precise(value)));
 /**
  * Maintain precision while performing arc cosine (inverse cosine) operation.
  * @param {number} y
@@ -129,19 +129,19 @@ export const inv = (value, minuend = 1) => subtract(minuend, value);
  * @param {number} value
  * @returns {number}
  */
-export const e2 = (value) => pow(value, 2);
+export const e2 = value => pow(value, 2);
 /**
  * Get the cube of a given value.
  * @param {number} value
  * @returns {number}
  */
-export const e3 = (value) => pow(value, 3);
+export const e3 = value => pow(value, 3);
 /**
  * Get the negative of a given value.
  * @param {number} value
  * @returns {number}
  */
-export const neg = (value) => multiply(value, -1);
+export const neg = value => multiply(value, -1);
 /**
  * Get the change (delta) between two values.
  * @param {number} a

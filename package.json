@@ -1,0 +1,28 @@
+{
+  "devDependencies": {
+    "babel-core": "^6.25.0",
+    "babel-eslint": "^7.2.3",
+    "babel-loader": "^7.1.1",
+    "babel-polyfill": "^6.23.0",
+    "babel-preset-env": "^1.6.0",
+    "babel-register": "^6.24.1",
+    "chai": "^4.1.1",
+    "eslint": "^4.1.1",
+    "eslint-loader": "^1.9.0",
+    "html-webpack-plugin": "^2.29.0",
+    "mocha": "^3.5.0",
+    "request": "^2.81.0",
+    "request-promise": "^4.2.1",
+    "webpack": "^3.1.0",
+    "webpack-dev-server": "^2.5.1",
+    "xml2js-es6-promise": "^1.1.1"
+  },
+  "scripts": {
+    "build": "webpack",
+    "watch": "webpack --watch",
+    "prod": "webpack -p",
+    "start": "webpack-dev-server --hot --inline",
+    "test": "mocha test/* --recursive --compilers js:babel-register --require babel-polyfill"
+  },
+  "dependencies": {}
+}
