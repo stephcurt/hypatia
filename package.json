@@ -6,6 +6,7 @@
     "babel-polyfill": "^6.23.0",
     "babel-preset-env": "^1.6.0",
     "babel-register": "^6.24.1",
+    "bluebird": "^3.5.0",
     "chai": "^4.1.1",
     "eslint": "^4.1.1",
     "eslint-loader": "^1.9.0",
@@ -15,7 +16,8 @@
     "request-promise": "^4.2.1",
     "webpack": "^3.1.0",
     "webpack-dev-server": "^2.5.1",
-    "xml2js-es6-promise": "^1.1.1"
+    "xml2js-es6-promise": "^1.1.1",
+    "xmldom": "^0.1.27"
   },
   "scripts": {
     "build": "webpack",
