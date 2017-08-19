@@ -19,19 +19,19 @@ export const Sign = {
  * @param value
  * @returns {number}
  */
-const precise = value => parseFloat(value.toFixed(Config.DIGITS));
+const precise = value => smallify(bigify(value));
 /**
  * Move decimal point past significant digit point to perform floating point corrected arithmetic operation.
  * @param value
  * @returns {number}
  */
-const bigify = value => precise(value) * Math.pow(10, Config.DIGITS);
+const bigify = value => parseInt(value * Math.pow(10, Config.DIGITS));
 /**
  * Move decimal point back to original position after floating point corrected arithmetic operation.
  * @param value
  * @returns {number}
  */
-const smallify = value => precise(value / Math.pow(10, Config.DIGITS));
+const smallify = value => parseInt(value) / Math.pow(10, Config.DIGITS);
 
 /**
 a * Maintain precision while performing addition operation, correcting for floating point arithmetic errors.
@@ -56,7 +56,7 @@ export const subtract = (...values) => values.reduce((acc, cur, i) => i === 0 ? 
  * @param {...number} values
  * @returns {number}
  */
-export const multiply = (...values) => values.reduce((acc, cur) => smallify(bigify(acc) * cur), 1);
+export const multiply = (...values) => values.reduce((acc, cur) => smallify(bigify(acc) * precise(cur)), 1);
 /**
  * Maintain precision while performing division operation, correcting for floating point arithmetic errors.
  * One argument returns arg/1
@@ -64,7 +64,7 @@ export const multiply = (...values) => values.reduce((acc, cur) => smallify(bigi
  * @param {...number} values
  * @returns {number}
  */
-export const divide = (...values) => values.reduce((acc, cur, i) => i === 0 ? cur : smallify(bigify(acc) / cur), 0);
+export const divide = (...values) => values.reduce((acc, cur, i) => i === 0 ? cur : smallify(bigify(acc) / precise(cur)), 0);
 /**
  * Maintain precision while performing power operation.
  * One argument returns arg^1 power
@@ -72,7 +72,7 @@ export const divide = (...values) => values.reduce((acc, cur, i) => i === 0 ? cu
  * @param {...number} values
  * @returns {number}
  */
-export const pow = (...values) => values.reverse().reduce((acc, cur, i) => precise(Math.pow(precise(cur), acc)), 1);
+export const pow = (...values) => values.reverse().reduce((acc, cur, i) => precise(cur ** precise(acc)), 1);
 /**
  * Maintain precision while performing arc cosine (inverse cosine) operation.
  * @param {number} value
