@@ -115,75 +115,84 @@ const decimalify = fn => {
 
 /**
  * Returns sum of given arguments to a specified accuracy.
+ * @param {number} [decimals]
  * @param {number} a
  * @param {number} b
- * @param {number} [decimals]
  */
 export const plus = curry((decimals, a, b) => smallifyFromInt(bigifyToInt(a, decimals) + bigifyToInt(b, decimals), decimals));
 /**
  * Maintain decimal accuracy while performing addition operation, correcting for floating point arithmetic errors.
  * One argument returns arg+0
  * Two or more arguments returns arg1+arg2+...^arg(n)
+ * @param {Maths#Decimals} [decimals]
  * @param {...number} values
  * @returns {number}
  */
 export const add = decimalify((decimals, ...values) => values.reduce((acc, cur) => plus(decimals, acc, cur), 0));
 /**
  * Returns difference between given arguments to a specified accuracy.
+ * @param {number} [decimals]
  * @param {number} a
  * @param {number} b
- * @param {number} [decimals]
+ * @returns {number}
  */
 export const minus = curry((decimals, a, b) => smallifyFromInt(bigifyToInt(a) - bigifyToInt(b), decimals));
 /**
  * Maintain decimal accuracy while performing subtraction operation, correcting for floating point arithmetic errors.
  * One argument returns arg-0
  * Two or more arguments returns arg1-arg2-...^arg(n)
+ * @param {Maths#Decimals} [decimals]
  * @param {...number} values
  * @returns {number}
  */
 export const subtract = decimalify((decimals, ...values) => values.reduce((acc, cur, i) => i === 0 ? cur : minus(decimals, acc, cur), 0));
 /**
- * Maintain decimal accuracy while performing multiplication operation, correcting for floating point arithmetic errors.
- * One argument returns arg*1
- * Two or more arguments returns arg1*arg2*...^arg(n)
- * @param {...number} values
+ * Returns product of given arguments to a specified accuracy.
+ * @param {number} [decimals]
+ * @param {number} a
+ * @param {number} b
  * @returns {number}
  */
 export const times = curry((decimals, a, b) => smallifyFromInt(bigifyToInt(a, decimals) * precise(b, decimals), decimals));
 /**
- * Returns product of given arguments to a specified accuracy.
- * @param {number} a
- * @param {number} b
- * @param {number} [decimals]
+ * Maintain decimal accuracy while performing multiplication operation, correcting for floating point arithmetic errors.
+ * One argument returns arg*1
+ * Two or more arguments returns arg1*arg2*...^arg(n)
+ * @param {Maths#Decimals} [decimals]
+ * @param {...number} values
+ * @returns {number}
  */
 export const multiply = decimalify((decimals, ...values) => values.reduce((acc, cur) => times(decimals, acc, cur), 1));
 /**
- * Maintain decimal accuracy while performing division operation, correcting for floating point arithmetic errors.
- * One argument returns arg/1
- * Two or more arguments returns arg1/arg2/...^arg(n)
- * @param {...number} values
+ * Returns quotient of given arguments to a specified accuracy.
+ * @param {number} [decimals]
+ * @param {number} a
+ * @param {number} b
  * @returns {number}
  */
 export const over = curry((decimals, a, b) => smallifyFromInt(bigifyToInt(a, decimals) / precise(b, decimals), decimals));
 /**
- * Returns quotient of given arguments to a specified accuracy.
- * @param {number} a
- * @param {number} b
- * @param {number} [decimals]
+ * Maintain decimal accuracy while performing division operation, correcting for floating point arithmetic errors.
+ * One argument returns arg/1
+ * Two or more arguments returns arg1/arg2/...^arg(n)
+ * @param {Maths#Decimals} [decimals]
+ * @param {...number} values
+ * @returns {number}
  */
 export const divide = decimalify((decimals, ...values) => values.reduce((acc, cur, i) => i === 0 ? cur : over(decimals, acc, cur), 0));
 /**
  * Returns power of given arguments to a specified accuracy.
+ * @param {number} [decimals]
  * @param {number} a
  * @param {number} b
- * @param {number} [decimals]
+ * @returns {number}
  */
 export const exp = curry((decimals, a, b) => precise(a ** precise(b, decimals), decimals));
 /**
  * Maintain decimal accuracy while performing power operation.
  * One argument returns arg^1 power
  * Two or more arguments returns arg1^arg2...^arg(n) power
+ * @param {Maths#Decimals} [decimals]
  * @param {...number} values
  * @returns {number}
  */
@@ -191,36 +200,42 @@ export const pow = decimalify((decimals, ...values) => values.reverse().reduce((
 /**
  * Maintain decimal accuracy while performing arc cosine (inverse cosine) operation.
  * @param {number} value
+ * @param {number} [decimals]
  * @returns {number}
  */
 export const acos = curry((value, decimals) => precise(Math.acos(precise(value, decimals)), decimals));
 /**
  * Maintain decimal accuracy while performing cosine operation.
  * @param {number} value
+ * @param {number} [decimals]
  * @returns {number}
  */
 export const cos = curry((value, decimals) => precise(Math.cos(precise(value, decimals)), decimals));
 /**
  * Maintain decimal accuracy while performing arc sine operation.
  * @param {number} value
+ * @param {number} [decimals]
  * @returns {number}
  */
 export const asin = curry((value, decimals) => precise(Math.asin(precise(value, decimals)), decimals));
 /**
  * Maintain decimal accuracy while performing sine operation.
  * @param {number} value
+ * @param {number} [decimals]
  * @returns {number}
  */
 export const sin = curry((value, decimals) => precise(Math.sin(precise(value, decimals)), decimals));
 /**
  * Maintain decimal accuracy while performing tangent operation.
  * @param {number} value
+ * @param {number} [decimals]
  * @returns {number}
  */
 export const tan = curry((value, decimals) => precise(Math.tan(precise(value, decimals)), decimals));
 /**
- * Maintain decimal accuracy while performing arc tangent (inverse tangent) operation.
+ * Maintain decimal accuracy while performing arc tangent (inverse tangent)
  * @param {number} value
+ * @param {number} [decimals]
  * @returns {number}
  */
 export const atan = curry((value, decimals) => precise(Math.atan(precise(value, decimals)), decimals));
@@ -228,6 +243,7 @@ export const atan = curry((value, decimals) => precise(Math.atan(precise(value, 
  * Maintain decimal accuracy while performing arc cosine (inverse cosine) operation.
  * @param {number} y
  * @param {number} x
+ * @param {number} [decimals]
  * @returns {number}
  */
 export const atan2 = curry((y, x, decimals) => precise(Math.atan2(precise(y, decimals), precise(x, decimals)), decimals));
@@ -236,24 +252,28 @@ export const atan2 = curry((y, x, decimals) => precise(Math.atan2(precise(y, dec
  * Get the additive inverse of given subtrahend.
  * @param {number} value - subtrahend
  * @param {number} [minuend=1] - minuend defaults to 1
+ * @param {number} [decimals]
  * @returns {number}
  */
 export const inv = curry((value, minuend = 1, decimals) => minus(decimals, minuend, value));
 /**
  * Get the square of a given value.
  * @param {number} value
+ * @param {number} [decimals]
  * @returns {number}
  */
 export const e2 = curry((value, decimals) => exp(decimals, value, 2));
 /**
  * Get the cube of a given value.
  * @param {number} value
+ * @param {number} [decimals]
  * @returns {number}
  */
 export const e3 = curry((value, decimals) => exp(decimals, value, 3));
 /**
  * Get the negative of a given value.
  * @param {number} value
+ * @param {number} [decimals]
  * @returns {number}
  */
 export const neg = curry((value, decimals) => times(decimals, value, -1));
@@ -261,6 +281,7 @@ export const neg = curry((value, decimals) => times(decimals, value, -1));
  * Get the change (delta) between two values.
  * @param {number} a
  * @param {number} b
+ * @param {number} [decimals]
  * @returns {number}
  */
 export const delta = curry((a, b, decimals) => minus(decimals, b, a));
